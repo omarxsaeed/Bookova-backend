@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { booksRouter } from "../components/books/index.js";
+import { ordersRouter } from "../components/orders/index.js";
 
 const router = Router();
 
@@ -9,4 +10,6 @@ router.get("/health", (req, res) => {
 });
 
 router.use("/books", booksRouter);
+router.use("/orders", ordersRouter);
+
 export default router;
