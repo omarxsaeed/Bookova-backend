@@ -12,6 +12,14 @@ router.post("/signup", async (req, res) => {
   res.send(req.body);
 });
 
+router.put("/edit/:id", async (req, res) => {
+  await userServices.editUser(req.params.id, req.body);
+});
+
+router.put("/delete/:id", async (req, res) => {
+  await userServices.deleteUser(req.params.id);
+});
+
 // router.post("/signup", function (res, req) {
 //   res.send("Hello");
 // });

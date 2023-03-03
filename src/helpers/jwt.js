@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
-import config from "config";
 import { CustomError } from "../utils/error";
 
 const createToken = (payload) => {
   try {
-    const token = jwt.sign(payload, config.get("jwt.secret"), { expiresIn: config.get("jwt.expiresIn") });
+    const token = jwt.sign(payload, "SecretCode", { expiresIn: "10m" });
     return token;
   } catch (err) {
     throw new CustomError(err, 401);
@@ -13,7 +12,7 @@ const createToken = (payload) => {
 
 const decodeToken = (token) => {
   try {
-    const decodedToken = jwt.verify(token, config.get("jwt.secret"));
+    const decodedToken = jwt.verify(token, "SecretCode");
     return decodedToken;
   } catch (err) {
     throw new CustomError(err, 401);

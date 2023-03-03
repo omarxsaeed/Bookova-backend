@@ -6,8 +6,8 @@ async function addUser(data) {
   return res;
 }
 
-async function editUser(id, data) {
-  let res = await User.updateOne({ _id: id }, data);
+async function editUser(data) {
+  let res = await User.updateOne({ _id: data.userId }, data);
   return res;
 }
 
@@ -22,14 +22,19 @@ async function getAllUser() {
 }
 
 async function getUser(email) {
-  const user = await usersModel.findOne({ email });
-  return user;
+  const res = await usersModel.findOne({ email });
+  return res;
+}
+
+async function getUserById(id) {
+  const res = await usersModel.findById(id);
+  return res;
 }
 
 async function getUserByCode(verificationCode) {
-  const user = await usersModel.findOne({ verificationCode });
-  console.log(user);
-  return user;
+  const res = await usersModel.findOne({ verificationCode });
+  console.log(res);
+  return res;
 }
 
-export default { addUser, editUser, deleteUser, getAllUser, getUser, getUserByCode };
+export { addUser, editUser, deleteUser, getAllUser, getUser, getUserById, getUserByCode };

@@ -1,4 +1,4 @@
-const addUser = {
+const signUp = {
   type: "object",
   required: ["fname", "lname", "email", "password", "nId", "picture", "address", "phone"],
   properties: {
@@ -15,6 +15,14 @@ const addUser = {
     phone: { type: "string" },
   },
   additionalProperties: false,
+};
+const signIn = {
+  type: "object",
+  required: ["email", "password"],
+  properties: {
+    email: { type: "string", format: "email" },
+    password: { type: "string", minimum: 8 },
+  },
 };
 
 const editUser = {
@@ -42,4 +50,4 @@ const deleteUser = {
   },
 };
 
-export { addUser, editUser, deleteUser };
+export { signUp, signIn, editUser, deleteUser };
