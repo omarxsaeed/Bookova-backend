@@ -4,7 +4,11 @@ import config from "../config/index.js";
 const connectMongoose = async () => {
   try {
     mongoose.set("strictQuery", false);
-    const db = await mongoose.connect(config.db.local);
+    const connectionParams = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    };
+    const db = await mongoose.connect(config.db.atlas, connectionParams);
     console.log(`MongoDB connected successfully at: ${db.connection.host}`);
   } catch (err) {
     console.log(err);
