@@ -14,6 +14,7 @@ const userSchema = mongoose.Schema({
   phone: String,
   isVerfied: { type: Boolean, default: false },
   verficationCode: String,
+  codeExpiryDate: Date,
 });
 
 const User = mongoose.model("user", userSchema);

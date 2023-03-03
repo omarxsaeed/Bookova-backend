@@ -17,7 +17,8 @@ exports.sendVerificationMail = (user, verificationCodeLifeTime) => {
     text: `Hi! There, You have recently visited 
            our website and entered your email.
            Please use the given code to verify your email
-           ${user.verificationCode} 
+           ${user.verificationCode}
+           The code will expire in ${verificationCodeLifeTime}
            Thanks`,
   };
 
