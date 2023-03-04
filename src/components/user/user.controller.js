@@ -32,7 +32,7 @@ const register = async (req, res, next) => {
     userInfo.codeExpiryDate = addToDate(new Date(), verificationCodeLifeTime, "minutes");
 
     // register the user
-    const user = await usersService.addUser(userData);
+    const user = await userServices.addUser(userData);
 
     // Send verification mail to the user
     await sendVerificationMail(user, verificationCodeLifeTime);

@@ -1,27 +1,22 @@
 import express from "express";
 const router = express.Router();
-import userServices from "./user.services.js";
-// import userValidator from "./userValidation.js";
+import validateSchema from "../../helpers/validateSchema.js";
+// import { login } from "./user.controller.js";
+// import { signIn } from "./user.validation";
+import * as userController from "./user.controller";
+import * as userValidation from "./user.validation";
 
-router.get("/", async (req, res) => {
-  await userServices.getAllUser();
-});
-router.post("/signup", async (req, res) => {
-  await userServices.addUser(req.body);
-  console.log(req.body);
-  res.send(req.body);
-});
+// router.post("/signup", validateSchema(userValidation.signUp, "body"), userController.register);
+// router.post("/signin", validateSchema(userValidation.signIn, "body"), userController.login);
+// router.put("/edit", validateSchema(userValidation.editUser, "body"), userController.editUser);
+// router.delete("/delete", validateSchema(userValidation.deleteUser, "body"), userController.deleteUser);
 
-router.put("/edit/:id", async (req, res) => {
-  await userServices.editUser(req.params.id, req.body);
-});
+// router.put("/edit", async (req, res) => {
+//   await userServices.editUser(req.body);
+// });
 
-router.put("/delete/:id", async (req, res) => {
-  await userServices.deleteUser(req.params.id);
-});
-
-// router.post("/signup", function (res, req) {
-//   res.send("Hello");
+// router.delete("/delete", async (req, res) => {
+//   await userServices.deleteUser(req.body);
 // });
 
 export default router;
