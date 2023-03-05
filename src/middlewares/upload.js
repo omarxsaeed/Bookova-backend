@@ -1,7 +1,5 @@
 import multer from "multer";
 
-const s3 = new S3Client();
-
 const localStorage = multer.diskStorage({
   destination: (req, res, cb) => {
     cb(null, "./src/uploads");
@@ -26,4 +24,4 @@ const upload = multer({
   },
 });
 
-export default upload;
+export { upload, validateImages };

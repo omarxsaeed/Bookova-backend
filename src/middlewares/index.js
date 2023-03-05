@@ -1,1 +1,1 @@
-export { default as upload } from "./upload.js";
+export * from "./upload.js";
