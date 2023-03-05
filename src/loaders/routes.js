@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { booksRouter } from "../components/books/index.js";
+import { bookstoresRouter } from "../components/bookstores/index.js";
 
 const router = Router();
 
@@ -9,4 +10,5 @@ router.get("/health", (req, res) => {
 });
 
 router.use("/books", booksRouter);
+router.use("/bookstores", bookstoresRouter);
 export default router;
