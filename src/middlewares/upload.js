@@ -1,13 +1,31 @@
+import { S3Client } from "@aws-sdk/client-s3";
 import multer from "multer";
+import multerS3 from "multer-s3";
+import { nanoid } from "nanoid";
 
-const s3 = new S3Client();
+const s3 = new S3Client({
+  region: process.env.S3_REGION,
+});
+const s3Storage = multerS3({
+  s3,
+  bucket: process.env.S3_BUCKET_NAME,
+  metadata: (req, file, cb) => {
+    const metadata = { fieldName: file.fieldname };
+    cb(null, metadata);
+  },
+  key: (req, file, cb) => {
+    const fileName = `${nanoid()}-${file.originalname}`;
+    cb(null, fileName);
+  },
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+});
 
 const localStorage = multer.diskStorage({
   destination: (req, res, cb) => {
-    cb(null, "./src/uploads");
+    cb(null, "src/uploads");
   },
   filename: (req, file, cb) => {
-    const fileName = `${Date.now()} - ${file.originalname}`;
+    const fileName = `${nanoid()}-${file.originalname}`;
     cb(null, fileName);
   },
 });
@@ -15,15 +33,13 @@ const localStorage = multer.diskStorage({
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png"];
 const MAX_FILE_SIZE_IN_MB = 5;
 
-const upload = multer({
-  storage: localStorage,
+export const upload = multer({
+  storage: s3Storage,
   fileFilter: (req, file, cb) => {
     if (ALLOWED_MIME_TYPES.includes(file.mimetype)) cb(null, true);
-    else cb(new Error("Only JPEG and PNG images are allowed."));
+    else cb(null, false);
   },
   limits: {
     fileSize: 1024 * 1024 * MAX_FILE_SIZE_IN_MB,
   },
 });
-
-export default upload;
