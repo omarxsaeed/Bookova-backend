@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { CustomError } from "../utils/error";
+import { CustomError } from "../utils/errors.js";
 
 const createToken = (payload) => {
   try {
@@ -19,7 +19,4 @@ const decodeToken = (token) => {
   }
 };
 
-export default {
-  createToken,
-  decodeToken,
-};
+export { createToken, decodeToken };

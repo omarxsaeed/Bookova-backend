@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-exports.sendVerificationMail = (user, verificationCodeLifeTime) => {
+export const sendVerificationMail = (user, verificationCodeLifeTime) => {
   const transporter = nodemailer.createTransport({
     service: "google",
     auth: {

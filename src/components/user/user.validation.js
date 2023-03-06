@@ -14,14 +14,14 @@ const signUp = {
     },
     phone: { type: "string" },
   },
-  additionalProperties: false,
+  // additionalProperties: false,
 };
 const signIn = {
   type: "object",
   required: ["email", "password"],
   properties: {
     email: { type: "string", format: "email" },
-    password: { type: "string", minimum: 8 },
+    password: { type: "string", minimum: 4 },
   },
 };
 
