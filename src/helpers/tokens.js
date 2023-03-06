@@ -1,5 +1,5 @@
-exports.userToken = (userId, userEmail) => ({
+export const userToken = (userId, userEmail) => ({
   userId,
   userEmail,
-  role: 'User',
+  role: "User",
 });

@@ -19,7 +19,4 @@ const isDateInThePast = (date) => {
   return date.toISOString() < today;
 };
 
-export default {
-  addToDate,
-  isDateInThePast,
-};
+export { addToDate, isDateInThePast };

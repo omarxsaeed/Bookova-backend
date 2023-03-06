@@ -10,4 +10,4 @@ const comparePasswords = async (password, hashedPassword) => {
   return isTheSamePassword;
 };
 
-export default { encryptPassword, comparePasswords };
+export { encryptPassword, comparePasswords };

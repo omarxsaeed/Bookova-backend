@@ -1,12 +1,12 @@
 import { customAlphabet } from "nanoid";
-import { encryptPassword, comparePasswords } from "../../helpers/bcrypt";
-import { addToDate, isDateInThePast } from "../../helpers/date";
-import { createToken } from "../../helpers/jwt";
-import { userToken } from "../../helpers/tokens";
-import { sendVerificationMail } from "../../Services/Mail/mailService";
-import { CustomError, errors } from "../../utils/errors";
-import respondWith from "../../utils/response";
-import userServices from "./user.services";
+import { encryptPassword, comparePasswords } from "../../helpers/bcrypt.js";
+import { addToDate, isDateInThePast } from "../../helpers/date.js";
+import { createToken } from "../../helpers/jwt.js";
+import { userToken } from "../../helpers/tokens.js";
+import { sendVerificationMail } from "../../Services/Mail/mailService.js";
+import { CustomError, errors } from "../../utils/errors.js";
+import respondWith from "../../utils/response.js";
+import * as userServices from "./user.services.js";
 
 const register = async (req, res, next) => {
   try {

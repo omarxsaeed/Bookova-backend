@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
   isVerfied: { type: Boolean, default: false },
   verficationCode: String,
   codeExpiryDate: Date,
+  isAdmin: { type: Boolean, default: false },
 });
 
 const User = mongoose.model("user", userSchema);
