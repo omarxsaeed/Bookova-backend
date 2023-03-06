@@ -3,7 +3,7 @@ import { encryptPassword, comparePasswords } from "../../helpers/bcrypt.js";
 import { addToDate, isDateInThePast } from "../../helpers/date.js";
 import { createToken } from "../../helpers/jwt.js";
 import { userToken } from "../../helpers/tokens.js";
-import sendVerificationMail from "../../Services/Mail/mailService.js";
+import sendVerificationMail from "../../services/Mail/mailService.js";
 import { CustomError, errors } from "../../utils/errors.js";
 import respondWith from "../../utils/response.js";
 import * as userServices from "./user.services.js";
