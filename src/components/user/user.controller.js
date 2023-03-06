@@ -3,39 +3,39 @@ import { encryptPassword, comparePasswords } from "../../helpers/bcrypt.js";
 import { addToDate, isDateInThePast } from "../../helpers/date.js";
 import { createToken } from "../../helpers/jwt.js";
 import { userToken } from "../../helpers/tokens.js";
-import { sendVerificationMail } from "../../Services/Mail/mailService.js";
+import sendVerificationMail from "../../Services/Mail/mailService.js";
 import { CustomError, errors } from "../../utils/errors.js";
 import respondWith from "../../utils/response.js";
 import * as userServices from "./user.services.js";
 
 const register = async (req, res, next) => {
   try {
-    const userData = req.body;
+    const userInfo = req.body;
 
-    const isRegistered = await userServices.getUser(userData.email);
+    const isRegistered = await userServices.getUser(userInfo.email);
     if (isRegistered) {
       throw new CustomError(errors.ALREADY_EXIST, 409);
     }
 
     // hash the user's password
-    const hashedPassword = await encryptPassword(userData.password);
-    userData.password = hashedPassword;
+    const hashedPassword = await encryptPassword(userInfo.password);
+    userInfo.password = hashedPassword;
 
     // adding user's verification code
     const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const nanoid = customAlphabet(alphabet, 6);
     const verificationCode = nanoid();
-    userData.verificationCode = verificationCode;
+    userInfo.verificationCode = verificationCode;
 
-    // Setting verification code lifetime in minutes
-    const verificationCodeLifeTime = 10;
-    userData.codeExpiryDate = addToDate(new Date(), verificationCodeLifeTime, "minutes");
+    // Setting verification code lifetime in hours
+    const verificationCodeLifeTime = 24;
+    userInfo.codeExpiryDate = addToDate(new Date(), verificationCodeLifeTime, "hours");
 
     // register the user
-    const user = await userServices.addUser(userData);
+    const user = await userServices.addUser(userInfo);
 
     // Send verification mail to the user
-    // await sendVerificationMail(user, verificationCodeLifeTime);
+    await sendVerificationMail(user, verificationCodeLifeTime);
 
     return respondWith(
       201,
@@ -51,22 +51,22 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const userData = req.body;
-    const user = await userServices.getUser(userData.email);
+    const userInfo = req.body;
+    const user = await userServices.getUser(userInfo.email);
 
     // Check if user exist
     if (!user) {
       throw new CustomError(errors.NOT_FOUND, 401);
     }
 
-    const isCorrectPassword = await comparePasswords(userData.password, user.password);
+    const isCorrectPassword = await comparePasswords(userInfo.password, user.password);
     // check if the entered password is correct
     if (!isCorrectPassword) {
       throw new CustomError(errors.NOT_AUTHENTICATED, 401);
     }
 
     // check if the user has a verfied account
-    if (!user.isVerfied) {
+    if (!user.isVerified) {
       throw new CustomError(errors.NOT_VERIFIED, 403);
     }
 
@@ -81,9 +81,9 @@ const login = async (req, res, next) => {
 
 const verify = async (req, res, next) => {
   try {
-    const userData = req.body;
+    const { verificationCode } = req.body;
 
-    const user = await userServices.getUserByCode(userData.verficationCode);
+    const user = await userServices.getUserByCode(verificationCode);
 
     // Check if user exists
     if (!user) {
@@ -91,7 +91,7 @@ const verify = async (req, res, next) => {
     }
 
     // Check if user is verified
-    if (!user.isVerified) {
+    if (user.isVerified) {
       throw new CustomError(errors.ALREADY_VERIFIED, 200);
     }
 
@@ -110,14 +110,14 @@ const verify = async (req, res, next) => {
 
 const editUser = async (req, res, next) => {
   try {
-    const userData = req.body;
-    const user = await userServices.getUserById(userData.userId);
+    const userInfo = req.body;
+    const user = await userServices.getUserById(userInfo.userId);
 
     if (!user) {
       throw new CustomError(errors.NOT_FOUND, 403);
     }
 
-    await userServices.editUser(userData);
+    await userServices.editUser(userInfo);
     return respondWith(201, {}, "Your personal information have been changed successfully", true, res);
   } catch (err) {
     next(err);

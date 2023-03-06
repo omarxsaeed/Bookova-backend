@@ -5,7 +5,7 @@ const signUp = {
     fname: { type: "string" },
     lname: { type: "string" },
     email: { type: "string", format: "email" },
-    password: { type: "string", minimum: 8 },
+    password: { type: "string", minLength: 8 },
     nId: { type: "string" },
     picture: { type: "string" },
     address: {
@@ -24,7 +24,7 @@ const signIn = {
   required: ["email", "password"],
   properties: {
     email: { type: "string", format: "email" },
-    password: { type: "string", minimum: 4 },
+    password: { type: "string", minLength: 8 },
   },
 };
 
@@ -36,11 +36,14 @@ const editUser = {
     fname: { type: "string" },
     lname: { type: "string" },
     email: { type: "string", format: "email" },
-    password: { type: "string", minimum: 8 },
+    password: { type: "string", minLength: 8 },
     picture: { type: "string" },
     address: {
-      city: { type: "string" },
-      street: { type: "string" },
+      type: "object",
+      properties: {
+        city: { type: "string" },
+        street: { type: "string" },
+      },
     },
     phone: { type: "string" },
   },
@@ -55,10 +58,10 @@ const deleteUser = {
 
 const verifyUser = {
   type: "object",
-  require: ["verificationCode"],
+  required: ["verificationCode"],
   properties: {
     verificationCode: { type: "string" },
   },
 };
 
-export { signUp, signIn, editUser, deleteUser };
+export { signUp, signIn, editUser, deleteUser, verifyUser };

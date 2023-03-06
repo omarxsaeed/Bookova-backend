@@ -12,8 +12,8 @@ const userSchema = mongoose.Schema({
     street: String,
   },
   phone: String,
-  isVerfied: { type: Boolean, default: false },
-  verficationCode: String,
+  isVerified: { type: Boolean, default: false },
+  verificationCode: String,
   codeExpiryDate: Date,
   isAdmin: { type: Boolean, default: false },
 });

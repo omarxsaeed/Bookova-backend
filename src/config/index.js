@@ -10,6 +10,11 @@ const config = {
     local: process.env.DB_LOCAL_URI,
     atlas: process.env.DB_PROD_URI,
   },
+  mail: {
+    service: process.env.MAIL_SERVICE,
+    username: process.env.MAIL_USERNAME,
+    password: process.env.MAIL_PASSWORD,
+  },
 };
 
 export default config;
