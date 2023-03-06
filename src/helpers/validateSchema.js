@@ -6,7 +6,6 @@ const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
 
 const validateSchema = (schema, property) => {
-  // console.log(schema, property);
   return (req, res, next) => {
     if (!req[property]) {
       req[property] = {};
