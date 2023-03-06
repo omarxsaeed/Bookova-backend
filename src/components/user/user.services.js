@@ -8,6 +8,7 @@ async function addUser(data) {
 
 async function editUser(data) {
   let res = await User.updateOne({ _id: data.userId }, data);
+  console.log(res);
   return res;
 }
 
@@ -22,17 +23,17 @@ async function getAllUser() {
 }
 
 async function getUser(email) {
-  const res = await usersModel.findOne({ email });
+  const res = await User.findOne({ email });
   return res;
 }
 
 async function getUserById(id) {
-  const res = await usersModel.findById(id);
+  const res = await User.findById(id);
   return res;
 }
 
 async function getUserByCode(verificationCode) {
-  const res = await usersModel.findOne({ verificationCode });
+  const res = await User.findOne({ verificationCode });
   console.log(res);
   return res;
 }

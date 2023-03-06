@@ -10,7 +10,7 @@ router.get("/health", (req, res) => {
   res.json("Server's healthy and running ⚡!");
 });
 
+router.use("/users", usersRouter);
 router.use("/books", booksRouter);
 router.use("/uploads", uploadsRouter);
-router.use("/users", usersRouter);
 export default router;
