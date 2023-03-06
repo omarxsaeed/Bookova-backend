@@ -2,13 +2,11 @@ import User from "./user.model.js";
 
 async function addUser(data) {
   let res = await User.create(data);
-  console.log(`data is here ${res}`);
   return res;
 }
 
 async function editUser(data) {
   let res = await User.updateOne({ _id: data.userId }, data);
-  console.log(res);
   return res;
 }
 
@@ -34,8 +32,13 @@ async function getUserById(id) {
 
 async function getUserByCode(verificationCode) {
   const res = await User.findOne({ verificationCode });
-  console.log(res);
   return res;
 }
 
-export { addUser, editUser, deleteUser, getAllUser, getUser, getUserById, getUserByCode };
+const verify = async (userId) => {
+  const user = await User.updateOne({ _id: userId }, { isVerified: true });
+  console.log(user);
+  return user;
+};
+
+export { addUser, editUser, deleteUser, getAllUser, getUser, getUserById, getUserByCode, verify };
