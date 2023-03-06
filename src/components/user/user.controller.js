@@ -25,17 +25,17 @@ const register = async (req, res, next) => {
     const alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const nanoid = customAlphabet(alphabet, 6);
     const verificationCode = nanoid();
-    userInfo.verificationCode = verificationCode;
+    userData.verificationCode = verificationCode;
 
     // Setting verification code lifetime in minutes
     const verificationCodeLifeTime = 10;
-    userInfo.codeExpiryDate = addToDate(new Date(), verificationCodeLifeTime, "minutes");
+    userData.codeExpiryDate = addToDate(new Date(), verificationCodeLifeTime, "minutes");
 
     // register the user
     const user = await userServices.addUser(userData);
 
     // Send verification mail to the user
-    await sendVerificationMail(user, verificationCodeLifeTime);
+    // await sendVerificationMail(user, verificationCodeLifeTime);
 
     return respondWith(
       201,
@@ -66,7 +66,7 @@ const login = async (req, res, next) => {
     }
 
     // check if the user has a verfied account
-    if (!user.isVerified) {
+    if (!user.isVerfied) {
       throw new CustomError(errors.NOT_VERIFIED, 403);
     }
 
@@ -111,7 +111,7 @@ const verify = async (req, res, next) => {
 const editUser = async (req, res, next) => {
   try {
     const userData = req.body;
-    const user = await userServices.getUserById(userData._id);
+    const user = await userServices.getUserById(userData.userId);
 
     if (!user) {
       throw new CustomError(errors.NOT_FOUND, 403);
@@ -133,7 +133,7 @@ const deleteUser = async (req, res, next) => {
       throw new CustomError(errors.NOT_FOUND, 403);
     }
     await userServices.deleteUser(userId);
-    return respondWith(200, {}, "Your book has been deleted successfully", true, res);
+    return respondWith(200, {}, "The user has been deleted successfully", true, res);
   } catch (err) {
     next(err);
   }

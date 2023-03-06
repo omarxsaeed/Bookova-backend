@@ -4,9 +4,10 @@ import validateSchema from "../../helpers/validateSchema.js";
 import * as userController from "./user.controller.js";
 import * as userValidation from "./user.validation.js";
 
-router.post("/signup", validateSchema(userValidation.signUp, "body"), userController.register);
-router.post("/signin", validateSchema(userValidation.signIn, "body"), userController.login);
-router.put("/edit", validateSchema(userValidation.editUser, "body"), userController.editUser);
-router.delete("/delete", validateSchema(userValidation.deleteUser, "body"), userController.deleteUser);
+router.post("/signup", userController.register);
+router.post("/signin", userController.login);
+router.put("/edit", userController.editUser);
+router.delete("/delete", userController.deleteUser);
+router.post("/verigy", userController.verify);
 
 export default router;

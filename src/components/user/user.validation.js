@@ -9,8 +9,11 @@ const signUp = {
     nId: { type: "string" },
     picture: { type: "string" },
     address: {
-      city: { type: "string" },
-      street: { type: "string" },
+      type: "object",
+      properties: {
+        city: { type: "string" },
+        street: { type: "string" },
+      },
     },
     phone: { type: "string" },
   },
