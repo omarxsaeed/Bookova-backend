@@ -17,7 +17,7 @@ const signUp = {
     },
     phone: { type: "string" },
   },
-  // additionalProperties: false,
+  additionalProperties: false,
 };
 const signIn = {
   type: "object",
@@ -50,6 +50,14 @@ const deleteUser = {
   type: "object",
   properties: {
     userId: { type: "string" },
+  },
+};
+
+const verifyUser = {
+  type: "object",
+  require: ["verificationCode"],
+  properties: {
+    verificationCode: { type: "string" },
   },
 };
 
