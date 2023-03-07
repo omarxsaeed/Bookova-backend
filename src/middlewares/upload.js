@@ -33,7 +33,7 @@ const localStorage = multer.diskStorage({
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png"];
 const MAX_FILE_SIZE_IN_MB = 5;
 
-export const upload = multer({
+const upload = multer({
   storage: s3Storage,
   fileFilter: (req, file, cb) => {
     if (ALLOWED_MIME_TYPES.includes(file.mimetype)) cb(null, true);
@@ -43,3 +43,5 @@ export const upload = multer({
     fileSize: 1024 * 1024 * MAX_FILE_SIZE_IN_MB,
   },
 });
+
+export { upload };
