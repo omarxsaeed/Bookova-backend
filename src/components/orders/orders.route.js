@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import validateSchema from "../../helpers/validateSchema.js";
+import { isAuth, validateSchema } from "../../middlewares/index.js";
 import * as ordersController from "./orders.controller.js";
 import * as ordersValidation from "./orders.validation.js";
 
