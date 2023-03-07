@@ -10,6 +10,10 @@ const config = {
     local: process.env.DB_LOCAL_URI,
     atlas: process.env.DB_PROD_URI,
   },
+  jwt: {
+    secret: process.env.JWT_EXPIRY_DATE,
+    expiresIn: process.env.S3_BUCKET_NAME,
+  },
   mail: {
     service: process.env.MAIL_SERVICE,
     username: process.env.MAIL_USERNAME,
