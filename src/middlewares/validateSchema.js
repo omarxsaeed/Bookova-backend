@@ -6,7 +6,6 @@ const ajv = new Ajv({ allErrors: true });
 addFormats(ajv);
 
 const validateSchema = (schema, property) => {
-  // console.log(schema, property);
   return (req, res, next) => {
     if (!req[property]) {
       req[property] = {};
@@ -23,4 +22,4 @@ const validateSchema = (schema, property) => {
   };
 };
 
-export default validateSchema;
+export { validateSchema };
