@@ -37,6 +37,22 @@ const addBook = async (req, res, next) => {
   }
 };
 
+const approveBook = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const book = await booksService.getBook(id);
+    if (!book) throw new CustomError(errors.NOT_FOUND, 404);
+
+    // approve the book
+    book.isApproved = true;
+    await book.save();
+
+    return respondWith(200, {}, `Your book has been approved successfully!`, true, res);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const updateBookInfo = async (req, res, next) => {
   try {
     const bookInfo = req.body;
@@ -68,4 +84,4 @@ const deleteBook = async (req, res, next) => {
   }
 };
 
-export { getBook, getAllBooks, addBook, updateBookInfo, deleteBook };
+export { getBook, getAllBooks, addBook, approveBook, updateBookInfo, deleteBook };
