@@ -1,5 +1,5 @@
-import { decodeToken } from "../helpers/jwt";
-import { CustomError, errors } from "../utils/errors";
+import { decodeToken } from "../helpers/jwt.js";
+import { CustomError, errors } from "../utils/errors.js";
 
 const isAuth = (req, res, next) => {
   try {
