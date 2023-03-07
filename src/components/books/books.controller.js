@@ -4,9 +4,10 @@ import * as booksService from "./books.service.js";
 
 const getBook = async (req, res, next) => {
   try {
-    const { bookId } = req.body;
-    const book = await booksService.getBook(bookId);
-    return respondWith(200, book, "Got your book right here!.", true, res);
+    const { id } = req.params;
+    const book = await booksService.getBook(id);
+    if (book) return respondWith(200, book, "Got your book right here!.", true, res);
+    else throw new CustomError(errors.NOT_FOUND, 404);
   } catch (err) {
     next(err);
   }

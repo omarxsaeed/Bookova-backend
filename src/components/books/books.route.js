@@ -5,7 +5,7 @@ import * as booksValidation from "./books.validation.js";
 
 const router = Router();
 
-router.get("/", booksController.getBook);
+router.get("/:id", booksController.getBook);
 router.get("/all", booksController.getAllBooks);
 router.post("/", validateSchema(booksValidation.addBook, "body"), booksController.addBook);
 router.put("/", validateSchema(booksValidation.updateBookInfo, "body"), booksController.updateBookInfo);
