@@ -22,4 +22,4 @@ const validateSchema = (schema, property) => {
   };
 };
 
-export default validateSchema;
+export { validateSchema };
