@@ -1,5 +1,5 @@
 import { Router } from "express";
-import validateSchema from "../../helpers/validateSchema.js";
+import { isAuth, validateSchema } from "../../middlewares/index.js";
 import * as booksController from "./books.controller.js";
 import * as booksValidation from "./books.validation.js";
 
