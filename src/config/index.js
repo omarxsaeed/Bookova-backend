@@ -11,8 +11,8 @@ const config = {
     atlas: process.env.DB_PROD_URI,
   },
   jwt: {
-    secret: process.env.JWT_EXPIRY_DATE,
-    expiresIn: process.env.S3_BUCKET_NAME,
+    secret: process.env.JWT_SECRET_KEY,
+    expiresIn: process.env.JWT_EXPIRY_DATE,
   },
   mail: {
     service: process.env.MAIL_SERVICE,
