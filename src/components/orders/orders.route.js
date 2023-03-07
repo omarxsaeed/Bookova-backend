@@ -6,8 +6,8 @@ import * as ordersValidation from "./orders.validation.js";
 
 const router = Router();
 
-router.get("/", ordersController.getOrder);
-router.get("/all", ordersController.getAllOrders);
-router.post("/", validateSchema(ordersValidation.makeOrder, "body"), ordersController.makeOrder);
+router.get("/", isAuth, ordersController.getOrder);
+router.get("/all", isAuth, ordersController.getAllOrders);
+router.post("/", isAuth, validateSchema(ordersValidation.makeOrder, "body"), ordersController.makeOrder);
 
 export default router;
