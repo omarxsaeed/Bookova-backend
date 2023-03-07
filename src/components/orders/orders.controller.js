@@ -23,7 +23,26 @@ const getAllOrders = async (req, res, next) => {
 const makeOrder = async (req, res, next) => {
   try {
     const orderInfo = req.body;
-    const order = await ordersService.makeOrder(orderInfo);
+
+    // make an order
+    let order = await ordersService.makeOrder(orderInfo);
+    order = await order.populate("orderedBooks");
+    // change the state of each book in the order
+    order.orderedBooks.forEach((book) => {
+      // Update the availability of the book
+      switch (book.availability) {
+        case "In Stock":
+          book.availability = "Out of Stock";
+          break;
+        case "Available for borrowing":
+          book.availability = "Borrowed";
+          break;
+        case "Available for donation":
+          book.availability = "Donated";
+          break;
+      }
+      book.save(); // Save the updated book to the database
+    });
     return respondWith(201, {}, `You just made an order with no. ${order._id} successfully!`, true, res);
   } catch (err) {
     next(err);
