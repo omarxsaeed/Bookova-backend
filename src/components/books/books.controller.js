@@ -2,6 +2,16 @@ import { CustomError, errors } from "../../utils/errors.js";
 import respondWith from "../../utils/response.js";
 import * as booksService from "./books.service.js";
 
+const getBook = async (req, res, next) => {
+  try {
+    const { bookId } = req.body;
+    const book = await booksService.getBook(bookId);
+    return respondWith(200, book, "Got your book right here!.", true, res);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getAllBooks = async (req, res, next) => {
   try {
     const books = await booksService.getAllBooks();
@@ -57,4 +67,4 @@ const deleteBook = async (req, res, next) => {
   }
 };
 
-export { getAllBooks, addBook, updateBookInfo, deleteBook };
+export { getBook, getAllBooks, addBook, updateBookInfo, deleteBook };

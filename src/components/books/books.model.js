@@ -5,7 +5,8 @@ import mongoose from "mongoose";
 const bookSchema = new mongoose.Schema({
   isbn: { type: Number },
   author: { type: String, required: true },
-  genre: { type: String, required: true },
+  mainCategory: { type: String, required: true },
+  subCategory: { type: String, required: true },
   title: { type: String, required: true },
   pages: { type: Number, required: true },
   images: {
@@ -14,8 +15,8 @@ const bookSchema = new mongoose.Schema({
       "https://images.manning.com/360/480/resize/book/9/be0e700-8ac5-44b7-92fc-0a0d250969be/Cantelon-Node-2ed.png",
     min: 3,
   },
-  owner: { type: String, required: true },
-  price: { type: Number, required: true },
+  owner: { type: mongoose.SchemaTypes.ObjectId, ref: "User", required: true },
+  price: { type: Number },
   condition: { type: String, enum: ["New", "Used"], required: true },
   availability: {
     type: String,
@@ -27,9 +28,9 @@ const bookSchema = new mongoose.Schema({
       "Available for donation",
       "Donated",
     ],
+    required: true,
   },
   isApproved: { type: Boolean, default: false },
-  publicationDate: { type: Date },
   language: { type: String },
   publisher: { type: String },
   createdAt: { type: Date, default: Date.now },
