@@ -1,21 +1,13 @@
 const makeOrder = {
   type: "object",
-  required: ["orderId", "customerId", "orderedBooks", "orderDate"],
+  required: ["orderId", "customerId", "orderedBooks", "orderTotal"],
   properties: {
-    orderId: { type: "string" },
+    orderId: { type: "number" },
     customerId: { type: "string" },
     orderedBooks: {
       type: "array",
-      items: {
-        type: "object",
-        properties: {
-          title: { type: "string" },
-          author: { type: "string" },
-          price: { type: "number" },
-          quantity: { type: "number" },
-        },
-        required: ["title", "author", "price", "quantity"],
-      },
+      items: { type: "string" },
+      minItems: 1,
     },
     orderDate: { type: "string", format: "date-time" },
     shippingDate: { type: "string", format: "date-time" },
@@ -24,12 +16,14 @@ const makeOrder = {
       properties: {
         street: { type: "string" },
         city: { type: "string" },
-        state: { type: "string" },
         postalCode: { type: "string" },
       },
-      required: ["street", "city", "state", "postalCode"],
+      required: ["street", "city", "postalCode"],
     },
-    orderStatus: { type: "string" },
+    orderStatus: {
+      type: "string",
+      enum: ["Pending", "Delivered", "Cancelled"],
+    },
     orderTotal: { type: "number" },
     notes: { type: "string" },
   },
