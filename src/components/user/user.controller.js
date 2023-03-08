@@ -109,6 +109,16 @@ const verify = async (req, res, next) => {
   }
 };
 
+const getUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    let user = await userServices.getUserById(id);
+    return respondWith(200, buildUserResponseDTO(user), `Here's your data ${user.fname}!.`, true, res);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getAllUsers = async (req, res, next) => {
   try {
     let users = await userServices.getAllUsers();
@@ -156,4 +166,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-export { register, login, verify, getAllUsers, editUser, deleteUser };
+export { register, login, verify, getUser, getAllUsers, editUser, deleteUser };
