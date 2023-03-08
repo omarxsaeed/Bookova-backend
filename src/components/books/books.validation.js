@@ -1,12 +1,23 @@
 const addBook = {
   type: "object",
-  required: ["author", "mainCategory", "subCategory", "title", "pages", "owner", "condition", "availability"],
+  required: [
+    "author",
+    "mainCategory",
+    "subCategory",
+    "title",
+    "description",
+    "pages",
+    "owner",
+    "condition",
+    "availability",
+  ],
   properties: {
     isbn: { type: "number" },
     author: { type: "string" },
     mainCategory: { type: "string" },
     subCategory: { type: "string" },
     title: { type: "string" },
+    description: { type: "string" },
     pages: {
       type: "integer",
       minimum: 1,
