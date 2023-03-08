@@ -3,9 +3,10 @@ import * as ordersService from "./orders.service.js";
 
 const getOrder = async (req, res, next) => {
   try {
-    const { orderId } = req.body;
-    const order = await ordersService.getOrder(orderId);
-    return respondWith(200, order, "The order you asked for.", true, res);
+    const { id } = req.params;
+    const order = await ordersService.getOrder(id);
+    if (order) return respondWith(200, order, "The order you asked for.", true, res);
+    else throw new CustomError(errors.NOT_FOUND, 404);
   } catch (err) {
     next(err);
   }
