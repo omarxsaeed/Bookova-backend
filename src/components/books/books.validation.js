@@ -7,7 +7,6 @@ const addBook = {
     "title",
     "description",
     "pages",
-    "owner",
     "condition",
     "availability",
   ],
@@ -30,7 +29,6 @@ const addBook = {
       },
       minItems: 3,
     },
-    owner: { type: "string" },
     price: { type: "number", minimum: 0 },
     condition: { type: "string", enum: ["New", "Used"] },
     availability: {

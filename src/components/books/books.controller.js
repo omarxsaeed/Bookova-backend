@@ -44,8 +44,7 @@ const addBook = async (req, res, next) => {
     const bookInfo = req.body;
 
     // check if the user already added the book before or not.
-
-    const book = await booksService.addBook(bookInfo);
+    const book = await booksService.addBook({ ...bookInfo, owner: req.requester.userId });
 
     return respondWith(201, {}, `Your Book ${book.title} has been added successfully!`, true, res);
   } catch (err) {

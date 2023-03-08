@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/all", booksController.getAllBooks);
 router.get("/:id", booksController.getBook);
-router.post("/", validateSchema(booksValidation.addBook, "body"), booksController.addBook);
+router.post("/", validateSchema(booksValidation.addBook, "body"), isAuth, booksController.addBook);
 router.post("/:id/approve", booksController.approveBook);
 router.put("/", validateSchema(booksValidation.updateBookInfo, "body"), booksController.updateBookInfo);
 router.delete("/:id", booksController.deleteBook);
