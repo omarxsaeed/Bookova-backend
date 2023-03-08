@@ -87,13 +87,13 @@ const updateBookInfo = async (req, res, next) => {
 
 const deleteBook = async (req, res, next) => {
   try {
-    const { bookId } = req.body;
-    const book = await booksService.getBook(bookId);
+    const { id } = req.params;
+    const book = await booksService.getBook(id);
 
     if (!book) {
       throw new CustomError(errors.NOT_FOUND, 403);
     }
-    await booksService.deleteBook(bookId);
+    await booksService.deleteBook(id);
     return respondWith(200, {}, "Your book has been deleted successfully", true, res);
   } catch (err) {
     next(err);
