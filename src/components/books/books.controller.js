@@ -14,8 +14,24 @@ const getBook = async (req, res, next) => {
 };
 
 const getAllBooks = async (req, res, next) => {
+  const { isApproved } = req.query;
+  let books = [];
   try {
-    const books = await booksService.getAllBooks();
+    if (isApproved === "true") {
+      // Return only approved books
+      books = await booksService.getAllBooks({ isApproved: true });
+      console.log("only approved", books);
+    } else if (isApproved === "false") {
+      // Return only unapproved books
+      books = await booksService.getAllBooks({ isApproved: false });
+      console.log("Not approved only", books);
+    } else {
+      // Return all books
+      books = await booksService.getAllBooks();
+      console.log("all of them", books);
+    }
+
+    // const books = await booksService.getAllBooks();
     return respondWith(200, books, "Got ya all books.", true, res);
   } catch (err) {
     next(err);

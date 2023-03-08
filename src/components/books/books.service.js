@@ -5,8 +5,9 @@ const getBook = async (bookId) => {
   return book;
 };
 
-const getAllBooks = async () => {
-  const books = await Book.find();
+const getAllBooks = async (filter) => {
+  filter ? filter : {};
+  const books = await Book.find(filter);
   return books;
 };
 
