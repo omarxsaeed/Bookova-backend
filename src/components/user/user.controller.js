@@ -7,6 +7,7 @@ import sendVerificationMail from "../../services/Mail/mailService.js";
 import { CustomError, errors } from "../../utils/errors.js";
 import respondWith from "../../utils/response.js";
 import * as userServices from "./user.services.js";
+import { buildUserResponseDTO } from "./user.mapper.js";
 
 const register = async (req, res, next) => {
   try {
@@ -108,6 +109,22 @@ const verify = async (req, res, next) => {
   }
 };
 
+const getAllUsers = async (req, res, next) => {
+  try {
+    let users = await userServices.getAllUsers();
+    console.log(users[0]);
+
+    users = users.map((user) => {
+      return buildUserResponseDTO(user);
+    });
+    console.log(users[0]);
+
+    return respondWith(200, users, "These are all the our users!.", true, res);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const editUser = async (req, res, next) => {
   try {
     const userInfo = req.body;
@@ -139,4 +156,4 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-export { register, login, verify, editUser, deleteUser };
+export { register, login, verify, getAllUsers, editUser, deleteUser };

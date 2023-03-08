@@ -15,7 +15,7 @@ async function deleteUser(id) {
   return res;
 }
 
-async function getAllUser() {
+async function getAllUsers() {
   let res = await User.find();
   return res;
 }
@@ -40,4 +40,4 @@ const verify = async (userId) => {
   return user;
 };
 
-export { addUser, editUser, deleteUser, getAllUser, getUser, getUserById, getUserByCode, verify };
+export { addUser, editUser, deleteUser, getAllUsers, getUser, getUserById, getUserByCode, verify };
