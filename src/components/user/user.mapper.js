@@ -4,6 +4,8 @@ export const buildUserResponseDTO = (user) => ({
   lastName: user.lname,
   email: user.email,
   emailVerified: Boolean(user.isVerified),
+  phone: user.phone,
   picture: user.picture,
+  address: user.address,
   isAdmin: Boolean(user.isAdmin),
 });
